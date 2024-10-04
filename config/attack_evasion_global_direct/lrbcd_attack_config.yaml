@@ -1,0 +1,12 @@
+attack:
+  type: lrbcd    # Specifies LR-BCD attack type
+  perturbation_budget: 0.1    # Max percentage of edges that can be perturbed
+  attack_steps: 100    # Number of iterations to run the attack
+  learning_rate: 0.01   # Learning rate for the attack algorithm
+dataset:
+  name: Cora    # Dataset to run the attack on (Cora, PubMed, etc.)
+model:
+  name: GPRGNN    # Model to be attacked (GPRGNN, GCN, GAT, etc.)
+evaluation:
+  metric: accuracy    # Metric to evaluate after attack (accuracy, robustness, etc.)
+  log_dir: ../results/attack_logs/    # Directory to store logs
