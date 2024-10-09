@@ -14,7 +14,7 @@ This project builds on the foundational work from the paper *Adversarial Trainin
   - **`experiment_adv_train_inductive.py`**: Code for inductive adversarial training.
   - **`experiment_adv_train_transductive.py`**: Code for transductive adversarial training.
   - **`experiment_global_attack_direct.py`**: Global attack code to evaluate robustness.
-- **`robust_diffusion/`**: Contains all code related to robust diffusion methods applied to GNNs.
+- **`robust_diffusion/`**: Contains all code related to robust diffusion methods applied to GNNs, helps stabilize the model against adversarial attacks.
   - **`attacks/`**: Implementation of adversarial attack methods such as LR-BCD.
   - **`helper/`**: Helper functions required for robust diffusion or attack methods.
   - **`models/`**: GNN models incorporating robust diffusion techniques.
