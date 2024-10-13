@@ -3,11 +3,11 @@ import torch.nn as nn
 from torch.utils.checkpoint import checkpoint
 import numpy as np
 import time
-from robust_diffusion.data import prep_graph
-from robust_diffusion.train import train_inductive
-from robust_diffusion.attacks import create_attack
-from robust_diffusion.models import create_model
-from robust_diffusion.helper.utils import accuracy
+from ..robust_diffusion.data import prep_graph
+from ..robust_diffusion.train import train_inductive
+from ..robust_diffusion.attacks import create_attack
+from ..robust_diffusion.models import create_model
+from ..robust_diffusion.helper.utils import accuracy
 from tqdm import tqdm
 import os
 import psutil

@@ -8,16 +8,16 @@ slurm:
   experiments_per_job: 1
   sbatch_options:
     gres: gpu:1       # num GPUs
-    mem: 32G          # memory
-    cpus-per-task: 4  # num cores
+    mem: 80G          # memory
+    cpus-per-task: 8  # num cores
     time: 0-01:00     # max time, D-HH:MM 
 
 fixed:
   train_params:
     lr: 1e-2
     weight_decay: 1e-3
-    patience: 200
-    max_epochs: 3000
+    patience: 100
+    max_epochs: 1000
   artifact_dir: cache
   model_storage_type: pretrained_ind_adv_final
   device: 0
@@ -69,9 +69,6 @@ grid:
     type: choice
     options:
      - cora
-     - cora_ml
-     - citeseer
-     - pubmed
 
 
 gprgnn:
@@ -127,7 +124,8 @@ gat:
     model_params:
       label: GAT
       model: GAT
-      hidden_dim: 64
-      dropout: 0.5
+      hidden_dim: 32  # Reduce hidden dimensions
+      dropout: 0.3  # Increase dropout to reduce memory usage
+
 
   
