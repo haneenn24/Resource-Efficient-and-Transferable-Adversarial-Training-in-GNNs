@@ -149,7 +149,9 @@ class LRBCD(SparseAttack):
 
                 # Calculate accuracy after the current epoch (overhead for monitoring and early stopping)
                 edge_index, edge_weight = self.get_modified_adj()
-                logits = self.attacked_model(data=self.attr.to(self.device), adj=(edge_index, edge_weight))
+                # In your _attack method, replace this line:
+                logits = self.attacked_model(self.attr.to(self.device), edge_index=edge_index, edge_weight=edge_weight)
+
                 accuracy = utils.accuracy(logits, self.labels, self.idx_attack)
                 del edge_index, edge_weight, logits
 
@@ -198,11 +200,21 @@ class LRBCD(SparseAttack):
 
         # TODO: Don't we want to switch to returning things?
 
-    def _get_logits(self, attr: torch.Tensor, edge_index: torch.Tensor, edge_weight: torch.Tensor):
-        return self.attacked_model(
-            data=attr.to(self.device),
-            adj=(edge_index.to(self.device), edge_weight.to(self.device))
-        )
+    def _get_logits(self, attr, edge_index, edge_weight):
+        # Call the model to get logits
+        print(f"attr shape: {attr.shape}, edge_index shape: {edge_index.shape}, edge_weight shape: {edge_weight.shape}")
+        logits = self.attacked_model(self.attr.to(self.device), edge_index=edge_index, edge_weight=edge_weight)
+
+        
+        # Check if logits is None
+        if logits is None:
+            raise ValueError("Logits returned None. There is a problem in the model.")
+        
+        # Optional: print the shape of the logits to debug
+        print(f"Logits shape: {logits.shape}")
+        
+        return logits
+
 
     @torch.no_grad()
     def sample_final_edges(self, n_perturbations: int) -> Tuple[torch.Tensor, torch.Tensor]:

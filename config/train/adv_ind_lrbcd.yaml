@@ -7,7 +7,7 @@ seml:
 slurm:
   experiments_per_job: 1
   sbatch_options:
-    gres: gpu:1       # num GPUs
+    gres: gpu:4       # num GPUs
     mem: 80G          # memory
     cpus-per-task: 8  # num cores
     time: 0-01:00     # max time, D-HH:MM 

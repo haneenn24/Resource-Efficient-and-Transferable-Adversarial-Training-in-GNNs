@@ -3,14 +3,17 @@ import torch.nn as nn
 from torch.utils.checkpoint import checkpoint
 import numpy as np
 import time
-from ..robust_diffusion.data import prep_graph
-from ..robust_diffusion.train import train_inductive
-from ..robust_diffusion.attacks import create_attack
-from ..robust_diffusion.models import create_model
-from ..robust_diffusion.helper.utils import accuracy
+import sys
 from tqdm import tqdm
 import os
 import psutil
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
+from robust_diffusion.data import prep_graph
+from robust_diffusion.train import train_inductive
+from robust_diffusion.attacks import create_attack
+from robust_diffusion.models import create_model
+from robust_diffusion.helper.utils import accuracy
+
 
 # Device setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
