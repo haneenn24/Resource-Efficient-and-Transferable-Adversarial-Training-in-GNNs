@@ -8,9 +8,9 @@ import logging
 from sklearn.model_selection import train_test_split
 
 # Set up logging to save the results in the file
-log_dir = './results/transferability/performance_standard'
+log_dir = './results/transferability/performance'
 os.makedirs(log_dir, exist_ok=True)
-log_file = os.path.join(log_dir, 'performance_standard.log')
+log_file = os.path.join(log_dir, 'performance.log')
 
 logging.basicConfig(filename=log_file, level=logging.INFO, format='%(message)s')
 
