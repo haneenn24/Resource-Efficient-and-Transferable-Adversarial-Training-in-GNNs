@@ -202,7 +202,6 @@ class LRBCD(SparseAttack):
 
     def _get_logits(self, attr, edge_index, edge_weight):
         # Call the model to get logits
-        print(f"attr shape: {attr.shape}, edge_index shape: {edge_index.shape}, edge_weight shape: {edge_weight.shape}")
         logits = self.attacked_model(self.attr.to(self.device), edge_index=edge_index, edge_weight=edge_weight)
 
         

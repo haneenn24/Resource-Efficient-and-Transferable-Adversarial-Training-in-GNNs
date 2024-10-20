@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import torch_geometric.utils as utils
 import logging
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm  # Importing tqdm for progress bar
 
 # Set up logging to save the results in the file
 log_dir = './results/transferability/performance'
@@ -95,9 +96,9 @@ class GPRGNN(torch.nn.Module):
         return F.log_softmax(out, dim=1)
 
 # Adversarial training (train with adversarial examples)
-def adversarial_train_model(model, data, epochs=200, epsilon=0.01):
+def adversarial_train_model(model, data, epochs=200, epsilon=1.0):
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
-    for epoch in range(epochs):
+    for epoch in tqdm(range(epochs), desc=f'Training with epsilon={epsilon}'):
         model.train()
         optimizer.zero_grad()
         
@@ -107,6 +108,10 @@ def adversarial_train_model(model, data, epochs=200, epsilon=0.01):
 
         # Generate adversarial examples using FGSM
         perturbed_data = fgsm_attack(data, model, epsilon)
+        
+        # Calculate perturbation in training set
+        train_perturbation = torch.norm(data.x - perturbed_data, p=2).item()
+        print(f'Epoch {epoch+1}, Perturbation in Train Set: {train_perturbation:.4f}')
         
         # Forward pass on adversarial data
         out_adv = model(data.clone())
@@ -120,7 +125,7 @@ def adversarial_train_model(model, data, epochs=200, epsilon=0.01):
     return model
 
 # FGSM Adversarial Attack
-def fgsm_attack(data, model, epsilon=0.01):
+def fgsm_attack(data, model, epsilon=1.0):
     data.x.requires_grad = True
     output = model(data)
     loss = F.nll_loss(output[data.train_mask], data.y[data.train_mask])
@@ -130,19 +135,37 @@ def fgsm_attack(data, model, epsilon=0.01):
     perturbed_data = data.x + epsilon * data_grad.sign()
     return perturbed_data.detach()
 
-# Evaluate models on clean and adversarial examples
-def evaluate_transferability(model, data, perturbed_data):
-    model.eval()
-    with torch.no_grad():
-        # Clean evaluation
-        logits_clean = model(data)
-        clean_accuracy = accuracy(logits_clean, data.y, data.test_mask)
+# FGSM Adversarial Attack on Test Data
+def fgsm_attack_test(data, model, epsilon=1.0):
+    # Ensure requires_grad=True on test data
+    data.x.requires_grad = True
+    output = model(data)
+    loss = F.nll_loss(output[data.test_mask], data.y[data.test_mask])
+    model.zero_grad()
+    loss.backward()
+    data_grad = data.x.grad.data
+    perturbed_data = data.x + epsilon * data_grad.sign()
+    return perturbed_data.detach()
 
-        # Adversarial evaluation (perturbed)
+# Evaluate models on clean and adversarial examples
+def evaluate_transferability(model, data, perturbed_data, apply_adversarial=True, epsilon=1.0):
+    # model.eval()
+    # with torch.no_grad():
+    # Clean evaluation
+    logits_clean = model(data)
+    clean_accuracy = accuracy(logits_clean, data.y, data.test_mask)
+
+    if apply_adversarial:
+        # Generate adversarial examples on the test data
+        perturbed_data = fgsm_attack_test(data, model, epsilon)
+        
+        # Adversarial evaluation
         perturbed_data_copy = data.clone()
         perturbed_data_copy.x = perturbed_data
         logits_adversarial = model(perturbed_data_copy)
         adversarial_accuracy = accuracy(logits_adversarial, data.y, data.test_mask)
+    else:
+        adversarial_accuracy = None
 
     return clean_accuracy, adversarial_accuracy
 
