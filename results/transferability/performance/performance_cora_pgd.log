@@ -1,0 +1,89 @@
+PGD_Attack:
+--------------------------------------------------------------------Transductive--------------------------------------------------------
+Standard Training Results with PGD Test Set Perturbation:
+-----------------------------------------
+From GCN (Standard Trained):
+GCN Clean Accuracy: 0.7245, GCN Adversarial Accuracy: 0.0357
+GAT Clean on GCN Adv: 0.1661, GAT Adversarial on GCN Adv: 0.1574
+GPRGNN Clean on GCN Adv: 0.0320, GPRGNN Adversarial on GCN Adv: 0.0209
+-----------------------------------------
+From GAT (Standard Trained):
+GAT Clean Accuracy: 0.1501, GAT Adversarial Accuracy: 0.1599
+GCN Clean on GAT Adv: 0.0271, GCN Adversarial on GAT Adv: 0.0246
+GPRGNN Clean on GAT Adv: 0.0209, GPRGNN Adversarial on GAT Adv: 0.0209
+-----------------------------------------
+From GPRGNN (Standard Trained):
+GPRGNN Clean Accuracy: 0.0209, GPRGNN Adversarial Accuracy: 0.0209
+GCN Clean on GPRGNN Adv: 0.0234, GCN Adversarial on GPRGNN Adv: 0.0234
+GAT Clean on GPRGNN Adv: 0.1488, GAT Adversarial on GPRGNN Adv: 0.1636
+
+
+Model Transferability Results -> add batch norm (regularization):
+-----------------------------------------
+From GCN:
+GCN Clean Accuracy: 0.7100, GCN Adversarial Accuracy: 0.1180
+GAT Clean on GCN Adv: 0.7910, GAT Adversarial on GCN Adv: 0.2770
+GPRGNN Clean on GCN Adv: 0.6320, GPRGNN Adversarial on GCN Adv: 0.1470
+-----------------------------------------
+From GAT:
+GAT Clean Accuracy: 0.7910, GAT Adversarial Accuracy: 0.1730
+GCN Clean on GAT Adv: 0.7100, GCN Adversarial on GAT Adv: 0.1760
+GPRGNN Clean on GAT Adv: 0.6320, GPRGNN Adversarial on GAT Adv: 0.1350
+-----------------------------------------
+From GPRGNN:
+GPRGNN Clean Accuracy: 0.6320, GPRGNN Adversarial Accuracy: 0.1680
+GCN Clean on GPRGNN Adv: 0.7100, GCN Adversarial on GPRGNN Adv: 0.2100
+GAT Clean on GPRGNN Adv: 0.7910, GAT Adversarial on GPRGNN Adv: 0.2870
+
+
+Model Transferability Results after Adversarial Training with PGD:
+-----------------------------------------
+From GCN (Adversarially Trained):
+GCN Clean Accuracy: 0.7920, GCN Adversarial Accuracy: 0.7740
+GAT Clean on GCN Adv: 0.7970, GAT Adversarial on GCN Adv: 0.7870
+GPRGNN Clean on GCN Adv: 0.7860, GPRGNN Adversarial on GCN Adv: 0.7750
+-----------------------------------------
+From GAT (Adversarially Trained):
+GAT Clean Accuracy: 0.7970, GAT Adversarial Accuracy: 0.7920
+GCN Clean on GAT Adv: 0.7920, GCN Adversarial on GAT Adv: 0.7830
+GPRGNN Clean on GAT Adv: 0.7860, GPRGNN Adversarial on GAT Adv: 0.7850
+-----------------------------------------
+From GPRGNN (Adversarially Trained):
+GPRGNN Clean Accuracy: 0.7860, GPRGNN Adversarial Accuracy: 0.7820
+GCN Clean on GPRGNN Adv: 0.7920, GCN Adversarial on GPRGNN Adv: 0.7940
+GAT Clean on GPRGNN Adv: 0.7970, GAT Adversarial on GPRGNN Adv: 0.8070
+
+--------------------------------------------------------------------Inductive--------------------------------------------------------
+Standard Training Results with PGD Test Set Perturbation:
+-----------------------------------------
+From GCN (Standard Trained):
+GCN Clean Accuracy: 0.7073, GCN Adversarial Accuracy: 0.0357
+GAT Clean on GCN Adv: 0.1624, GAT Adversarial on GCN Adv: 0.1451
+GPRGNN Clean on GCN Adv: 0.0283, GPRGNN Adversarial on GCN Adv: 0.0283
+-----------------------------------------
+From GAT (Standard Trained):
+GAT Clean Accuracy: 0.1451, GAT Adversarial Accuracy: 0.1599
+GCN Clean on GAT Adv: 0.0271, GCN Adversarial on GAT Adv: 0.0283
+GPRGNN Clean on GAT Adv: 0.0283, GPRGNN Adversarial on GAT Adv: 0.0283
+-----------------------------------------
+From GPRGNN (Standard Trained):
+GPRGNN Clean Accuracy: 0.0283, GPRGNN Adversarial Accuracy: 0.0283
+GCN Clean on GPRGNN Adv: 0.0295, GCN Adversarial on GPRGNN Adv: 0.0258
+GAT Clean on GPRGNN Adv: 0.1488, GAT Adversarial on GPRGNN Adv: 0.1476
+
+Inductive Adversarial Training Results with PGD:
+-----------------------------------------
+From GCN (Adversarially Trained):
+GCN Clean Accuracy: 0.3383, GCN Adversarial Accuracy: 0.3383
+GAT Clean on GCN Adv: 0.3383, GAT Adversarial on GCN Adv: 0.3272
+GPRGNN Clean on GCN Adv: 0.3383, GPRGNN Adversarial on GCN Adv: 0.3383
+-----------------------------------------
+From GAT (Adversarially Trained):
+GAT Clean Accuracy: 0.3358, GAT Adversarial Accuracy: 0.3223
+GCN Clean on GAT Adv: 0.3383, GCN Adversarial on GAT Adv: 0.3383
+GPRGNN Clean on GAT Adv: 0.3383, GPRGNN Adversarial on GAT Adv: 0.3383
+-----------------------------------------
+From GPRGNN (Adversarially Trained):
+GPRGNN Clean Accuracy: 0.3383, GPRGNN Adversarial Accuracy: 0.3383
+GCN Clean on GPRGNN Adv: 0.3383, GCN Adversarial on GPRGNN Adv: 0.3383
+GAT Clean on GPRGNN Adv: 0.3346, GAT Adversarial on GPRGNN Adv: 0.3284
