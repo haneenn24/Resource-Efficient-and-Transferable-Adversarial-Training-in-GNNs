@@ -13,10 +13,6 @@ Our work enhances the efficiency of adversarial training in GNNs by:
 - **Reducing Perturbation Frequency**: Perturbations are applied every alternate epoch, leading to significant reductions in memory usage and training time without compromising robustness.
 - **Monte Carlo Sampling**: Implemented as an approximation technique to lower computational overhead in perturbation calculations, while preserving robustness through controlled randomness.
 
-**Baseline Results**: We establish performance benchmarks using the **Cora, Citeseer, and arXiv datasets** based on previous findings:
-- **Cora**: LR-BCD achieves a clean accuracy of 83.3% and an adversarial accuracy of 76.8%.
-- **Citeseer**: LR-BCD outperforms PR-BCD in both clean and adversarial accuracy.
-- **arXiv**: Original LR-BCD reports a memory usage of 20 GB and 10 seconds per epoch, which serves as our baseline for efficiency improvements.
 
 ### 2. Transferability of Adversarial Attacks Across GNN Architectures and Tasks
 We extend our study to assess the **transferability** of adversarial attacks in GNNs by exploring:
@@ -29,11 +25,16 @@ Our findings reveal that **batch normalization** and other regularization techni
 - **Reducing Overfitting**: Generalizes model representations, making adversarial perturbations more transferable.
 - **Creating Stable Representations**: Perturbations crafted on regularized models tend to generalize better across models, which improves cross-model transferability.
 
+**Results reveal:**  
+**Higher Transferability Rates:** Attacks originating from simpler models (e.g., GCN) transfer better to complex ones (e.g., GAT).
+Impact of Regularization: Regularization increases the transferability rate by ~10% for PGD attacks, underscoring the interplay between robustness and adaptability.  
+**Inductive vs. Transductive Learning:** Inductive learning shows reduced transferability rates, highlighting the challenges in generalizing adversarial attacks across unseen data
+
 ## Project Structure
 
 - **`lrbcd.py`**: Contains the implementation of the **LR-BCD** method with our modifications, including reduced perturbation frequency and Monte Carlo sampling.
 - **`transferability_tests.py`**: Implements cross-model and cross-task transferability tests, covering both transductive and inductive learning modes.
-- **`regularization_effects.py`**: Analyzes the effects of regularization on transferability rates and overall robustness.
+- **`regularization_techniques.py`**: Analyzes the effects of regularization on transferability rates and overall robustness.
 - **Datasets**: Scripts for loading and processing **Cora, Citeseer, and arXiv** datasets.
 - **Results**: Contains empirical results on memory usage, time per epoch, and adversarial accuracy to evaluate the effectiveness of our resource-efficient modifications.
 
@@ -54,19 +55,19 @@ Our findings reveal that **batch normalization** and other regularization techni
 3. **Run Adversarial Training**:
    To run adversarial training using optimized LR-BCD:
    ```bash
-   python lrbcd.py
+   python lrbcd_optimized.py
    ```
 
 4. **Transferability Testing**:
    Evaluate the transferability of adversarial attacks across GNN architectures and tasks:
    ```bash
-   python transferability_tests.py
+   run transferability_tests under transfer dir
    ```
 
 5. **Analyze Regularization Effects**:
    To explore regularization impacts on transferability:
    ```bash
-   python regularization_effects.py
+   python regularization_techniques.py
    ```
 
 ## Results Summary
